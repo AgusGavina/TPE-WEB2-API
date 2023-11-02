@@ -1,14 +1,18 @@
 <?php
+require_once 'database/config.php';
 require_once 'libs/Router.php';
+require_once 'app/controllers/product.api.controller.php';
 
 // crea el router
 $router = new Router();
 
 // define la tabla de ruteo
-$router->addRoute('tareas', 'GET', 'TaskApiController', 'obtenerTareas');
-$router->addRoute('tareas', 'POST', 'TaskApiController', 'crearTarea');
-$router->addRoute('tareas/:ID', 'GET', 'TaskApiController', 'obtenerTarea');
+//                ENDPOINT   verbo          controller           metodo
+$router->addRoute('Productos', 'GET', 'ProductApiController', 'getProducts');
+$router->addRoute('Productos', 'POST', 'ProductApiController', 'addProduct');
+$router->addRoute('Productos/:ID', 'GET', 'ProductApiController', 'getProducts');
+$router->addRoute('Productos/:ID', 'DELETE', 'productApiController', 'deleteProduct');
 
 // rutea
-$router->route($_GET["resource"], $_SERVER['REQUEST_METHOD']);
+$router->route($_GET['resource'], $_SERVER['REQUEST_METHOD']);
 ?>
