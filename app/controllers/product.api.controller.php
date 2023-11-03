@@ -49,4 +49,23 @@ class ProductApiController extends ApiController
 
         $this->view->response('Product successfully added id=0'.$id, 201);
     }
+    function updateProduct($params = []){
+        $product_id = $params[":ID"];
+        $product = $this->model->getProduct($product_id);
+
+        if($product){
+            $body = $this->getData();
+
+            $Product_name = $body->Product_name;
+            $Price = $body-> Price;
+            $Category_id = $body-> Category_id;
+            $Milliliters = $body-> Milliliters;
+
+            $product = $this->model->updateProduct($Product_name, $Milliliters, $Price, $Category_id, $product_id);
+            $this->view->response('Product successfully updated id='.$product_id, 200);
+        }
+        else{
+            $this->view->response('Product id='.$product_id.' not found', 404);
+        }
+    }
 }

@@ -8,9 +8,10 @@ $router = new Router();
 
 // define la tabla de ruteo
 //                ENDPOINT   verbo          controller           metodo
-$router->addRoute('Productos', 'GET', 'ProductApiController', 'getProducts');
-$router->addRoute('Productos', 'POST', 'ProductApiController', 'addProduct');
-$router->addRoute('Productos/:ID', 'GET', 'ProductApiController', 'getProducts');
+$router->addRoute('Productos', 'GET', 'ProductApiController', 'getProducts'); // Consigna 2
+$router->addRoute('Productos', 'POST', 'ProductApiController', 'addProduct'); // Consigna 4
+$router->addRoute('Productos/:ID', 'GET', 'ProductApiController', 'getProducts'); // Consigna 5
+$router->addRoute('Productos/:ID', 'PUT', 'ProductApiController', 'updateProduct');
 $router->addRoute('Productos/:ID', 'DELETE', 'productApiController', 'deleteProduct');
 
 // rutea

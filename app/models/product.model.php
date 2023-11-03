@@ -2,9 +2,7 @@
 require_once 'model.php';
 class ProductModel  extends Model
 {
-    /**
-     * Obtiene y devuelve de la base de datos todas las tareas.
-     */
+    
     function getProducts()
     {
         $query = $this->db->prepare('SELECT * FROM products');
@@ -35,5 +33,10 @@ class ProductModel  extends Model
         $query->execute([$Product_name, $Milliliters, $Price, $Category_id]);
 
         return $this->db->lastInsertId();
+    }
+    function updateProduct($Product_name, $Milliliters, $Price, $Category_id, $id)
+    {
+        $query = $this->db->prepare('UPDATE `products` SET `Product_name` = ?, `Milliliters` = ?, `Price` = ?, Category_id=? WHERE `products`.`Product_id` = ?;');
+        $query->execute([$Product_name, $Milliliters, $Price, $Category_id, $id]);
     }
 }
