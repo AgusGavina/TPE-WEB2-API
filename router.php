@@ -1,18 +1,27 @@
 <?php
 require_once 'database/config.php';
 require_once 'libs/Router.php';
-require_once 'app/controllers/product.api.controller.php';
+require_once 'app/controllers/admin.api.controller.php';
+require_once 'app/controllers/products.api.controller.php';
 
 // crea el router
 $router = new Router();
 
-// define la tabla de ruteo
 //                ENDPOINT   verbo          controller           metodo
-$router->addRoute('Productos', 'GET', 'ProductApiController', 'getProducts'); // Consigna 2
-$router->addRoute('Productos', 'POST', 'ProductApiController', 'addProduct'); // Consigna 4
-$router->addRoute('Productos/:ID', 'GET', 'ProductApiController', 'getProducts'); // Consigna 5
-$router->addRoute('Productos/:ID', 'PUT', 'ProductApiController', 'updateProduct');
-$router->addRoute('Productos/:ID', 'DELETE', 'productApiController', 'deleteProduct');
+$router->addRoute('Administrador/Productos', 'GET', 'AdminApiController', 'getProducts');
+$router->addRoute('Administrador/Productos/:ID', 'GET', 'AdminApiController', 'getProducts'); // Consigna 5
+$router->addRoute('Administrador/Productos', 'POST', 'AdminApiController', 'addProduct'); // Consigna 4
+$router->addRoute('Administrador/Productos/:ID', 'PUT', 'AdminApiController', 'updateProduct');
+$router->addRoute('Administrador/Productos/:ID', 'DELETE', 'AdminApiController', 'deleteProduct');
+$router->addRoute('Administrador/Categorias', 'GET', 'AdminApiController', 'getCategorys'); 
+$router->addRoute('Administrador/Categorias/:ID', 'GET', 'AdminApiController', 'getCategorys'); 
+$router->addRoute('Administrador/Categorias', 'POST', 'AdminApiController', 'addCategory');
+$router->addRoute('Administrador/Categorias/:ID', 'PUT', 'AdminApiController', 'updateCategory');
+$router->addRoute('Administrador/Categorias/:ID', 'DELETE', 'AdminApiController', 'deleteCategory');
+
+$router->addRoute('Productos', 'GET', 'ProductsApiController', 'getProducts');
+$router->addRoute('Productos/:Categoria', 'GET', 'ProductsApiController', 'getProductsByCategory');
+$router->addRoute('Productos/:Categoria/:Producto', 'GET', 'ProductsApiController', 'getProductsByCategory');
 
 // rutea
 $router->route($_GET['resource'], $_SERVER['REQUEST_METHOD']);

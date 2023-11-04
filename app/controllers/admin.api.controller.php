@@ -1,15 +1,16 @@
 <?php
-require_once 'app/models/product.model.php';
+require_once 'app/models/admin.model.php';
 require_once 'app/controllers/api.controller.php';
-class ProductApiController extends ApiController
+class AdminApiController extends ApiController
 {
     private $model;
 
     function __construct()
     {
         parent::__construct();
-        $this->model = new productModel();
+        $this->model = new AdminModel();
     }
+    //---------- PRODUCTOS ----------
     function getProducts($params = [])
     {
         if(empty($params)){
@@ -66,6 +67,59 @@ class ProductApiController extends ApiController
         }
         else{
             $this->view->response('Product id='.$product_id.' not found', 404);
+        }
+    }
+    // ---------- CATEGORIAS ----------
+    function getCategorys($params = [])
+    {
+        if(empty($params)){
+            $categorys = $this->model->getCategorys();
+            return $this->view->response($categorys, 200);
+        }
+        else{
+            $category = $this->model->getCategory($params[":ID"]);
+            if(!empty($category)){
+                return $this->view->response($category, 200);
+            }
+            else {
+                $this->view->response('Category id='.$params[':ID'].' doesnt exist', 404);
+            }
+        }
+    }
+    function deleteCategory($params = []){
+        $category_id = $params[':ID'];
+        $category = $this->model->getCategory($category_id);
+        if($category){
+            $this->model->deleteCategory($category_id);
+            $this->view->response('Category id='.$category_id.' successfully deleted', 200);
+        }
+        else{
+            $this->view->response('Category id='.$category_id.' not found', 404);
+        }
+    }
+    function addCategory($params = []){
+        $body = $this->getData();
+
+        $Category_name = $body->Category_name;
+
+        $id = $this->model->insertCategory($Category_name);
+
+        $this->view->response('Category successfully added id=0'.$id, 201);
+    }
+    function updateCategory($params = []){
+        $category_id = $params[":ID"];
+        $category = $this->model->getCategory($category_id);
+
+        if($category){
+            $body = $this->getData();
+
+            $Category_name = $body->Category_name;
+
+            $category = $this->model->updateCategory($Category_name, $category_id);
+            $this->view->response('Category successfully updated id='.$category_id, 200);
+        }
+        else{
+            $this->view->response('Category id='.$category_id.' not found', 404);
         }
     }
 }
