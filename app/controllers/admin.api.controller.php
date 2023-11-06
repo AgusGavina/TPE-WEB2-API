@@ -11,6 +11,10 @@ class AdminApiController extends ApiController
         $this->model = new AdminModel();
     }
     function showAdministrador(){
+        $this->getProducts();
+        $this->getCategorys();
+    }
+    function showError(){
         
     }
     //---------- PRODUCTOS ----------

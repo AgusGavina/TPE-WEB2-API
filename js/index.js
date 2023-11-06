@@ -1,11 +1,10 @@
 "use strict";
 
-const URL = "http://localhost/Facultad/TPE-WEB2-API/api/Productos/";
-const GET_CATEGORYS = "http://localhost/Facultad/TPE-WEB2-API/api/Productos/";
+const API_URL = "http://localhost/Facultad/TPE-WEB2-API";
 
 async function getAllProducts() {
     try {
-        let response = await fetch(URL);
+        let response = await fetch(API_URL);
         if(!response.ok){
             throw new Error('Recurso no existe');
         }
