@@ -10,6 +10,9 @@ class AdminApiController extends ApiController
         parent::__construct();
         $this->model = new AdminModel();
     }
+    function showAdministrador(){
+        
+    }
     //---------- PRODUCTOS ----------
     function getProducts($params = [])
     {

@@ -7,7 +7,8 @@ require_once 'app/controllers/products.api.controller.php';
 // crea el router
 $router = new Router();
 
-//                ENDPOINT   verbo          controller           metodo
+//                      ENDPOINT             verbo          controller           metodo
+$router->addRoute('Administrador', 'GET', 'AdminApiController', 'showAministrador');
 $router->addRoute('Administrador/Productos', 'GET', 'AdminApiController', 'getProducts');
 $router->addRoute('Administrador/Productos/:ID', 'GET', 'AdminApiController', 'getProducts'); // Consigna 5
 $router->addRoute('Administrador/Productos', 'POST', 'AdminApiController', 'addProduct'); // Consigna 4

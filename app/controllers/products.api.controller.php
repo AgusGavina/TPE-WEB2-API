@@ -14,7 +14,13 @@ class ProductsApiController extends ApiController
     function getProducts()
     {
         $products = $this->model->getProducts();
+        //$categorys = $this->model->getCategorys();
         return $this->view->response($products, 200);
+    }
+
+    function getCategroys(){
+        $categorys = $this->model->getCategorys();
+        return $this->view->response($categorys, 200);
     }
 
     function getProductsByCategory($params = [])
@@ -25,7 +31,7 @@ class ProductsApiController extends ApiController
                 $product = $this->model->getProductById($params[':Producto']);
                 if (!empty($product)) {
                     if ($product[0]->Category_id == $params[':Categoria']) {
-                        return $this->view->response($product, 200);
+                        return $this->view->response($product[0], 200);
                     } else {
                         $this->view->response('Product id=' . $params[':Producto'] . ' doesnt belong to the category', 404);
                     }
