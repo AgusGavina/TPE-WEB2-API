@@ -1,6 +1,6 @@
 "use strict";
 
-const API_URL = "http://localhost/Facultad/TPE-WEB2-API/api";
+const API_URL = "http://localhost/Facultad/TPE-WEB2-API/api/Productos";
 const main = document.querySelector('#main');
 const home = document.querySelector('#home').addEventListener('click', showHome);
 
@@ -47,6 +47,8 @@ async function getAllProducts() {
         console.log(e);
     }
 }
+
+//async function categorias
 
 function showAllProducts(products) {
     let div = document.querySelector("#container-cards");

@@ -55,7 +55,7 @@ class AdminApiController extends ApiController
 
         $id = $this->model->insertProduct($Product_name, $Milliliters, $Price, $Category_id);
 
-        $this->view->response('Product successfully added id=0'.$id, 201);
+        $this->view->response('Product successfully added id='.$id, 201);
     }
     function updateProduct($params = []){
         $product_id = $params[":ID"];
