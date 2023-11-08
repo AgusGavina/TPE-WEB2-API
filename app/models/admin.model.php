@@ -17,7 +17,7 @@ class AdminModel  extends Model
         $query = $this->db->prepare("SELECT * FROM products WHERE Product_id =?");
         $query->execute([$id]);
 
-        $id = $query->fetchAll(PDO::FETCH_OBJ);
+        $id = $query->fetch(PDO::FETCH_OBJ);
 
         return $id;
     }

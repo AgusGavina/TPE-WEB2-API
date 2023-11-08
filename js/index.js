@@ -1,10 +1,42 @@
 "use strict";
 
-const API_URL = "http://localhost/Facultad/TPE-WEB2-API";
+const API_URL = "http://localhost/Facultad/TPE-WEB2-API/api";
+const main = document.querySelector('#main');
+const home = document.querySelector('#home').addEventListener('click', showHome);
+
+function showHome(){
+    main.classList = "";
+    main.classList = "main-home";
+    main.innerHTML = `
+    <div class="home-info">
+        <img src="img/decoracion/bebidas.jpg" alt="bebidas">
+        <div>
+            <h2>Dejá que el escabio llegue a vos</h2>
+            <p>Cervezas vinos y licores a la puerta de tu casa cuanto antes</p>
+        </div>
+    </div>
+
+    <div class="home-info">
+        <img src="img/decoracion/whisky-y-vaso.jpg" alt="whisky y vaso">
+        <div>
+            <h2>Lo querés? Lo tenemos.</h2>
+            <p>Tinto, hay. Whisky? Tenemos. Esa IPA explosiva que probaste en tu bar favorito? También. </p>
+        </div>
+    </div>
+
+    <div class="home-info">
+        <img src="img/decoracion/3-copas.jpg" alt="3 copas brindando">
+        <div>
+            <p>No te pierdas un momento especial porque te tocó ir a comprar.</p>
+        </div>
+    </div>
+    `;
+}
 
 async function getAllProducts() {
     try {
-        let response = await fetch(API_URL);
+        let url = API_URL + "/Productos"
+        let response = await fetch(url);
         if(!response.ok){
             throw new Error('Recurso no existe');
         }
@@ -39,8 +71,6 @@ function showAllProducts(products) {
         `;
     }
 }
-
-getAllProducts();
 
 
 async function insertProduct(e){

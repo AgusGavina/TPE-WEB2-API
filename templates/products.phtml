@@ -1,0 +1,43 @@
+<ul class="list-categorys">
+    <li class="categorias-productos" id="0">Todos</li>
+    <?php foreach ($categorys as $category) :
+        if ($category->Category_id) : ?>
+            <li class="categorias-productos" id="<?php echo $category->Category_id ?>"><?php echo $category->Category_name ?></li>
+        <?php endif ?>
+    <?php endforeach ?>
+</ul>
+
+<div class="container-cards">
+    <?php foreach ($products as $product) : ?>
+        <div class="card" categoryID="<?= $product->Category_id ?>">
+            <div class="card-header">
+                <?php
+                $i = 0;
+                $var = false;
+                while ($var == false && $i < count($categorys)) {
+                    if ($product->Category_id == $categorys[$i]->Category_id) {
+                        $var = true; ?>
+                        <p><?= $categorys[$i]->Category_name ?></p>
+                <?php
+                    }
+                    $i++;
+                } ?>
+            </div>
+            <div class="card-img">
+                <img src="img/productos/<?= $product->Product_name ?>.png" alt="<?= $product->Product_name ?> <?= $product->Milliliters ?>ml">
+            </div>
+            <div class="card-info">
+                <div class="card-description">
+                    <p class="card-productName"><?= $product->Product_name ?></p>
+                    <p class="card-milliliters"><?= $product->Milliliters ?>ml</p>
+                </div>
+                <hr class="card-divider">
+                <div class="card-footer">
+                    <p class="card-price">$<?= $product->Price ?></p>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>
+
+<script src="js/productos.js"></script>

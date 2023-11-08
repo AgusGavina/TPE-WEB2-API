@@ -18,8 +18,8 @@ class APIView
         );
         return (isset($status[$code])) ? $status[$code] : $status[500];
     }
-    //public function viewHome()
-    //{
-    //    require 'templates/home.phtml';
-    //}
+    public function viewIndex()
+    {
+        require 'index.html';
+    }
 }
