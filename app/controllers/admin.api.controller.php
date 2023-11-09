@@ -10,13 +10,6 @@ class AdminApiController extends ApiController
         parent::__construct();
         $this->model = new AdminModel();
     }
-    function showAdministrador(){
-        $this->getProducts();
-        $this->getCategorys();
-    }
-    function showError(){
-        
-    }
     //---------- PRODUCTOS ----------
     function getProducts($params = [])
     {
@@ -34,18 +27,7 @@ class AdminApiController extends ApiController
             }
         }
     }
-    function deleteProduct($params = []){
-        $product_id = $params[':ID'];
-        $product = $this->model->getProduct($product_id);
-        if($product){
-            $this->model->deleteProduct($product_id);
-            $this->view->response('Product id='.$product_id.' successfully deleted', 200);
-        }
-        else{
-            $this->view->response('Product id='.$product_id.' not found', 404);
-        }
-    }
-    function addProduct($params = []){
+    function insertProduct($params = []){
         $body = $this->getData();
 
         $Product_name = $body->Product_name;
@@ -76,6 +58,17 @@ class AdminApiController extends ApiController
             $this->view->response('Product id='.$product_id.' not found', 404);
         }
     }
+    function deleteProduct($params = []){
+        $product_id = $params[':ID'];
+        $product = $this->model->getProduct($product_id);
+        if($product){
+            $this->model->deleteProduct($product_id);
+            $this->view->response('Product id='.$product_id.' successfully deleted', 200);
+        }
+        else{
+            $this->view->response('Product id='.$product_id.' not found', 404);
+        }
+    }
     // ---------- CATEGORIAS ----------
     function getCategorys($params = [])
     {
@@ -93,18 +86,7 @@ class AdminApiController extends ApiController
             }
         }
     }
-    function deleteCategory($params = []){
-        $category_id = $params[':ID'];
-        $category = $this->model->getCategory($category_id);
-        if($category){
-            $this->model->deleteCategory($category_id);
-            $this->view->response('Category id='.$category_id.' successfully deleted', 200);
-        }
-        else{
-            $this->view->response('Category id='.$category_id.' not found', 404);
-        }
-    }
-    function addCategory($params = []){
+    function insertCategory($params = []){
         $body = $this->getData();
 
         $Category_name = $body->Category_name;
@@ -124,6 +106,17 @@ class AdminApiController extends ApiController
 
             $category = $this->model->updateCategory($Category_name, $category_id);
             $this->view->response('Category successfully updated id='.$category_id, 200);
+        }
+        else{
+            $this->view->response('Category id='.$category_id.' not found', 404);
+        }
+    }
+    function deleteCategory($params = []){
+        $category_id = $params[':ID'];
+        $category = $this->model->getCategory($category_id);
+        if($category){
+            $this->model->deleteCategory($category_id);
+            $this->view->response('Category id='.$category_id.' successfully deleted', 200);
         }
         else{
             $this->view->response('Category id='.$category_id.' not found', 404);

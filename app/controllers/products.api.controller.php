@@ -14,16 +14,17 @@ class ProductsApiController extends ApiController
     function getProducts()
     {
         $products = $this->model->getProducts();
-        //$categorys = $this->model->getCategorys();
         return $this->view->response($products, 200);
     }
 
-    function getCategroys(){
-        $categorys = $this->model->getCategorys();
-        return $this->view->response($categorys, 200);
-    }
+    // ELIMINAR
+    // function getCategroys()
+    // {
+    //     $categorys = $this->model->getCategorys();
+    //     return $this->view->response($categorys, 200);
+    // }
 
-    function getProductsByCategory($params = [])
+    function getProductsByParams($params = [])
     {
         $category = $this->model->getCategory($params[':Categoria']);
         if (!empty($category)) {

@@ -1,42 +1,12 @@
 "use strict";
 
-const API_URL = "http://localhost/Facultad/TPE-WEB2-API/api/Productos";
-const main = document.querySelector('#main');
-const home = document.querySelector('#home').addEventListener('click', showHome);
+const URL = "api/Productos";
 
-function showHome(){
-    main.classList = "";
-    main.classList = "main-home";
-    main.innerHTML = `
-    <div class="home-info">
-        <img src="img/decoracion/bebidas.jpg" alt="bebidas">
-        <div>
-            <h2>Dejá que el escabio llegue a vos</h2>
-            <p>Cervezas vinos y licores a la puerta de tu casa cuanto antes</p>
-        </div>
-    </div>
-
-    <div class="home-info">
-        <img src="img/decoracion/whisky-y-vaso.jpg" alt="whisky y vaso">
-        <div>
-            <h2>Lo querés? Lo tenemos.</h2>
-            <p>Tinto, hay. Whisky? Tenemos. Esa IPA explosiva que probaste en tu bar favorito? También. </p>
-        </div>
-    </div>
-
-    <div class="home-info">
-        <img src="img/decoracion/3-copas.jpg" alt="3 copas brindando">
-        <div>
-            <p>No te pierdas un momento especial porque te tocó ir a comprar.</p>
-        </div>
-    </div>
-    `;
-}
+const main = document.querySelector("#main");
 
 async function getAllProducts() {
     try {
-        let url = API_URL + "/Productos"
-        let response = await fetch(url);
+        let response = await fetch(URL);
         if(!response.ok){
             throw new Error('Recurso no existe');
         }
@@ -48,13 +18,11 @@ async function getAllProducts() {
     }
 }
 
-//async function categorias
-
 function showAllProducts(products) {
-    let div = document.querySelector("#container-cards");
-    div.innerHTML = "";
+    main.classList.add("container-cards");
+    main.innerHTML = "";
     for (const product of products) {
-        div.innerHTML += `
+        main.innerHTML += `
         <a href="${product.Category_id}/${product.Product_id}" class="no-style">
         <div class="card" categoryID="${product.Product_name}">
             <div class="card-header">
@@ -74,6 +42,21 @@ function showAllProducts(products) {
     }
 }
 
+getAllProducts();
+
+
+function showProductsPage(){
+    main.innerHTML = `
+    <ul class="list-categorys">
+        <li class="categorias-productos" id="0">Todos</li>
+        <?php foreach ($categorys as $category) :
+            if ($category->Category_id) : ?>
+                <li class="categorias-productos" id="<?php echo $category->Category_id ?>"><?php echo $category->Category_name ?></li>
+            <?php endif ?>
+        <?php endforeach ?>
+    </ul>
+    `;
+}
 
 async function insertProduct(e){
     e.preventDefault();
