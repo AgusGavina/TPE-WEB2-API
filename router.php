@@ -9,7 +9,7 @@ require_once 'app/controllers/products.api.controller.php';
 $router = new Router();
 
 // default route
-$router->setDefaultRoute('ProductsApiController', 'show404');  
+$router->setDefaultRoute('ProductsApiController', 'show404'); 
 
 //                      ENDPOINT             verbo          controller           metodo
 $router->addRoute('Administrador/Productos', 'GET', 'AdminApiController', 'getProducts'); // Consigna 2
@@ -25,7 +25,7 @@ $router->addRoute('Administrador/Categorias/:ID', 'DELETE', 'AdminApiController'
 
 
 $router->addRoute('Productos', 'GET', 'ProductsApiController', 'getProducts'); // Consigna 2
-$router->addRoute('Categorias', 'GET', 'AdminApiController', 'getCategorys'); // Consigna 2
+$router->addRoute('Categorias', 'GET', 'ProductsApiController', 'getCategorys'); // Consigna 2
 $router->addRoute('Productos/:Categoria', 'GET', 'ProductsApiController', 'getProductsByParams'); // Consigna 3 - Añadir asendente o desencente
 $router->addRoute('Productos/:Categoria/:Producto', 'GET', 'ProductsApiController', 'getProductsByParams');
 
