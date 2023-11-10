@@ -11,6 +11,11 @@ class ProductsApiController extends ApiController
         $this->model = new ProductModel();
     }
 
+    function show404($params = null)
+    {
+        $this->view->response("The requested resource does not exist", 404);
+    }
+
     function getProducts()
     {
         $products = $this->model->getProducts();

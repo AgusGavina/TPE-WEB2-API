@@ -18,4 +18,8 @@ class APIView
         );
         return (isset($status[$code])) ? $status[$code] : $status[500];
     }
+    public function viewIndex()
+    {
+        require_once 'index.html';
+    }
 }

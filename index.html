@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Winery</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
@@ -21,15 +21,22 @@
         <nav class="nav-links" id="nav-links">
             <ul>
                 <li class="nav-link"><a href="Home" id="home">Inicio</a></li>
-                <li class="nav-link"><a href="Productos">Productos</a></li>
+                <li class="nav-link"><a href="" id="productos">Productos</a></li>
                 <li class="nav-link"><a href="Administrador">Administrar</a></li>
                 <li class="nav-link none-border"><a href="inicioSesion"><i class="fa-solid fa-user fa-xl"></i></a></li>
             </ul>
         </nav>
     </header>
 
-    <main id="main"></main>
+    <ul class="list-categorys" id="categorys-menu">
+        <li class="categorias-productos" id="0">Todos</li>
+    </ul>
+    
+    <div class="container-cards" id="container-cards">
+        
+    </div>
 
+    <script src="js/main.js"></script>
     <script src="js/index.js"></script>
 </body>
 </html>
