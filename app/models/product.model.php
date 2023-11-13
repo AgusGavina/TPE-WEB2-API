@@ -48,6 +48,15 @@ class ProductModel extends Model
 
         return $id;
     }
+    public function getProductsByCategoryAndOrganized($id, $sort, $order)
+    {
+        $query = $this->db->prepare("SELECT * FROM products WHERE Category_id =? ORDER BY ? ?");
+        $query->execute([$id, $sort, $order]);
+
+        $id = $query->fetchAll(PDO::FETCH_OBJ);
+
+        return $id;
+    }
     public function getProductById($id)
     {
         $query = $this->db->prepare('SELECT * FROM products WHERE Product_id=?');

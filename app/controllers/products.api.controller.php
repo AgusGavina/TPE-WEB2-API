@@ -22,12 +22,35 @@ class ProductsApiController extends ApiController
         return $this->view->response($products, 200);
     }
 
-    // ELIMINAR
-    // function getCategroys()
-    // {
-    //     $categorys = $this->model->getCategorys();
-    //     return $this->view->response($categorys, 200);
-    // }
+    function getProductsByCategoryAsc($params = [])
+    {
+        $category = $this->model->getCategory($params[':Categoria']);
+        if (!empty($category)) {
+            $products = $this->model->getProductsByCategoryAndOrganized($params[':Categoria'], 'Price', 'asc');
+            if (!empty($products)) {
+                return $this->view->response($products, 200);
+            } else {
+                $this->view->response('Organized incorrect', 404);
+            }
+        } else {
+            $this->view->response('Category id=' . $params[':Categoria'] . ' doesnt exist', 404);
+        }
+    }
+
+    function getProductsByCategoryDesc($params = [])
+    {
+        $category = $this->model->getCategory($params[':Categoria']);
+        if (!empty($category)) {
+            $products = $this->model->getProductsByCategoryAndOrganized($params[':Categoria'], 'Price', 'desc');
+            if (!empty($products)) {
+                return $this->view->response($products, 200);
+            } else {
+                $this->view->response('Organized incorrect', 404);
+            }
+        } else {
+            $this->view->response('Category id=' . $params[':Categoria'] . ' doesnt exist', 404);
+        }
+    }
 
     function getProductsByParams($params = [])
     {
