@@ -4,6 +4,7 @@ require_once 'libs/Router.php';
 
 require_once 'app/controllers/admin.api.controller.php';
 require_once 'app/controllers/products.api.controller.php';
+require_once 'app/controllers/user.api.controller.php';
 
 // crea el router
 $router = new Router();
@@ -23,12 +24,13 @@ $router->addRoute('Administrador/Categorias', 'POST', 'AdminApiController', 'ins
 $router->addRoute('Administrador/Categorias/:ID', 'PUT', 'AdminApiController', 'updateCategory'); // Consigna 5  
 $router->addRoute('Administrador/Categorias/:ID', 'DELETE', 'AdminApiController', 'deleteCategory');
 
+$router->addRoute('Productos', 'GET', 'ProductsApiController', 'getProducts'); // Consigna 2 y 3 
+//  Productos/:Categoria?sort={Price || Product_name}&order={ASC || DESC}
+$router->addRoute('Productos/:Categoria', 'GET', 'ProductsApiController', 'getProductsByParams'); // Consigna 3 y 8
+//  Productos/:Categoria?sort={Price}&order={ASC || DESC}
+$router->addRoute('Productos/:Categoria/:Producto', 'GET', 'ProductsApiController', 'getProductsByParams');
 
-$router->addRoute('Productos', 'GET', 'ProductsApiController', 'getProducts'); // Consigna 2
-$router->addRoute('Productos/:Categoria', 'GET', 'ProductsApiController', 'getProductsByParams');
-$router->addRoute('Productos/:Categoria?sort=price&order=asc', 'GET', 'ProductsApiController', 'getProductsByCategoryAsc'); // Consigna 3
-$router->addRoute('Productos/:Categoria?sort=price&order=desc', 'GET', 'ProductsApiController', 'getProductsByCategoryDesc');
-$router->addRoute('Productos/:Categoria/:Producto', 'GET', 'ProductsApiController', 'getProductByParams');
+$router->addRoute('user/token', 'GET', 'UserApiController', 'getToken');
 
 // rutea
 $router->route($_GET['resource'], $_SERVER['REQUEST_METHOD']);

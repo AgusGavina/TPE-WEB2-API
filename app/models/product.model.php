@@ -3,24 +3,6 @@ require_once "model.php";
 
 class ProductModel extends Model
 {
-    public function getCategorys()
-    {
-        $query = $this->db->prepare('SELECT * FROM categorys');
-        $query->execute();
-
-        $categorys = $query->fetchAll(PDO::FETCH_OBJ);
-
-        return $categorys;
-    }
-    public function nameCategory()
-    {
-        $query = $this->db->prepare("SELECT * FROM categorys WHERE Category_id ");
-        $query->execute();
-
-        $tasks = $query->fetchAll(PDO::FETCH_OBJ);
-
-        return $tasks;
-    }
     public function getCategory($id)
     {
         $query = $this->db->prepare('SELECT Category_id FROM categorys WHERE Category_id=?');
@@ -30,36 +12,27 @@ class ProductModel extends Model
 
         return $tasks;
     }
-    public function getProducts()
+    public function getProducts($ordering)
     {
-        $query = $this->db->prepare('SELECT * FROM products');
+        $query = $this->db->prepare('SELECT * FROM products '.$ordering);
         $query->execute();
 
         $tasks = $query->fetchAll(PDO::FETCH_OBJ);
 
         return $tasks;
     }
-    public function getProductsByCategory($id)
+    public function getProductById($id)
     {
-        $query = $this->db->prepare("SELECT * FROM products WHERE Category_id =?");
+        $query = $this->db->prepare('SELECT * FROM products WHERE Product_id=?');
         $query->execute([$id]);
 
         $id = $query->fetchAll(PDO::FETCH_OBJ);
 
         return $id;
     }
-    public function getProductsByCategoryAndOrganized($id, $sort, $order)
+    public function getProductsByCategory($id, $ordering)
     {
-        $query = $this->db->prepare("SELECT * FROM products WHERE Category_id =? ORDER BY ? ?");
-        $query->execute([$id, $sort, $order]);
-
-        $id = $query->fetchAll(PDO::FETCH_OBJ);
-
-        return $id;
-    }
-    public function getProductById($id)
-    {
-        $query = $this->db->prepare('SELECT * FROM products WHERE Product_id=?');
+        $query = $this->db->prepare("SELECT * FROM products WHERE Category_id = ? ".$ordering);
         $query->execute([$id]);
 
         $id = $query->fetchAll(PDO::FETCH_OBJ);

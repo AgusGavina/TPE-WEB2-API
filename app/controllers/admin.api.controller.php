@@ -1,14 +1,17 @@
 <?php
 require_once 'app/models/admin.model.php';
+require_once 'app/helpers/auth.api.helper.php';
 require_once 'app/controllers/api.controller.php';
 class AdminApiController extends ApiController
 {
     private $model;
+    private $authHelper;
 
     function __construct()
     {
         parent::__construct();
         $this->model = new AdminModel();
+        $this->authHelper = new AuthHelper();
     }
     //---------- PRODUCTOS ----------
     function getProducts($params = [])
@@ -28,6 +31,12 @@ class AdminApiController extends ApiController
         }
     }
     function insertProduct($params = []){
+        $user = $this->authHelper->currentUser();
+        if(!$user) {
+            $this->view->response("Unauthorized", 401);
+            return;
+        }
+
         $body = $this->getData();
 
         $Product_name = $body->Product_name;
@@ -40,6 +49,12 @@ class AdminApiController extends ApiController
         $this->view->response('Product successfully added id='.$id, 201);
     }
     function updateProduct($params = []){
+        $user = $this->authHelper->currentUser();
+        if(!$user) {
+            $this->view->response("Unauthorized", 401);
+            return;
+        }
+
         $product_id = $params[":ID"];
         $product = $this->model->getProduct($product_id);
 
@@ -87,6 +102,12 @@ class AdminApiController extends ApiController
         }
     }
     function insertCategory($params = []){
+        $user = $this->authHelper->currentUser();
+        if(!$user) {
+            $this->view->response("Unauthorized", 401);
+            return;
+        }
+
         $body = $this->getData();
 
         $Category_name = $body->Category_name;
@@ -96,6 +117,12 @@ class AdminApiController extends ApiController
         $this->view->response('Category successfully added id=0'.$id, 201);
     }
     function updateCategory($params = []){
+        $user = $this->authHelper->currentUser();
+        if(!$user) {
+            $this->view->response("Unauthorized", 401);
+            return;
+        }
+
         $category_id = $params[":ID"];
         $category = $this->model->getCategory($category_id);
 

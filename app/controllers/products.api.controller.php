@@ -18,38 +18,17 @@ class ProductsApiController extends ApiController
 
     function getProducts()
     {
-        $products = $this->model->getProducts();
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+        $order = isset($_GET['order']) ? $_GET['order'] : null;
+        $ordering = '';
+        if(isset($sort)) {
+            if(($sort == 'Price' || $sort == 'Product_name') && ($order == 'ASC' || $order == 'DESC')){
+                $ordering = "ORDER BY ".$sort." ".$order;
+            }
+        }
+        $products = $this->model->getProducts($ordering);
+
         return $this->view->response($products, 200);
-    }
-
-    function getProductsByCategoryAsc($params = [])
-    {
-        $category = $this->model->getCategory($params[':Categoria']);
-        if (!empty($category)) {
-            $products = $this->model->getProductsByCategoryAndOrganized($params[':Categoria'], 'Price', 'asc');
-            if (!empty($products)) {
-                return $this->view->response($products, 200);
-            } else {
-                $this->view->response('Organized incorrect', 404);
-            }
-        } else {
-            $this->view->response('Category id=' . $params[':Categoria'] . ' doesnt exist', 404);
-        }
-    }
-
-    function getProductsByCategoryDesc($params = [])
-    {
-        $category = $this->model->getCategory($params[':Categoria']);
-        if (!empty($category)) {
-            $products = $this->model->getProductsByCategoryAndOrganized($params[':Categoria'], 'Price', 'desc');
-            if (!empty($products)) {
-                return $this->view->response($products, 200);
-            } else {
-                $this->view->response('Organized incorrect', 404);
-            }
-        } else {
-            $this->view->response('Category id=' . $params[':Categoria'] . ' doesnt exist', 404);
-        }
     }
 
     function getProductsByParams($params = [])
@@ -68,7 +47,15 @@ class ProductsApiController extends ApiController
                     $this->view->response('Product id=' . $params[':Producto'] . ' doesnt exist', 404);
                 }
             } else {
-                $products = $this->model->getProductsByCategory($params[':Categoria']);
+                $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+                $order = isset($_GET['order']) ? $_GET['order'] : null;
+                $ordering = '';
+                if(isset($sort)) {
+                    if($sort == 'Price' && ($order == 'ASC' || $order == 'DESC')){
+                        $ordering = "ORDER BY ".$sort." ".$order;
+                    }
+                }
+                $products = $this->model->getProductsByCategory($params[':Categoria'], $ordering);
                 if (!empty($products)) {
                     return $this->view->response($products, 200);
                 } else {
