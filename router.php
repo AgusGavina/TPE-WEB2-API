@@ -6,7 +6,6 @@ require_once 'app/controllers/admin.api.controller.php';
 require_once 'app/controllers/products.api.controller.php';
 require_once 'app/controllers/user.api.controller.php';
 
-
 $router = new Router();
 
 
@@ -24,10 +23,9 @@ $router->addRoute('Administrador/Categorias', 'POST', 'AdminApiController', 'ins
 $router->addRoute('Administrador/Categorias/:ID', 'PUT', 'AdminApiController', 'updateCategory');   
 $router->addRoute('Administrador/Categorias/:ID', 'DELETE', 'AdminApiController', 'deleteCategory');
 
-$router->addRoute('Productos', 'GET', 'ProductsApiController', 'getProducts'); // Consigna 2 y 3 
+$router->addRoute('Productos', 'GET', 'ProductsApiController', 'getProducts');
 //  Productos/:Categoria?sort={Price || Product_name}&order={ASC || DESC}
-$router->addRoute('Productos/:Categoria', 'GET', 'ProductsApiController', 'getProductsByParams'); // Consigna 3 y 8
-//  Productos/:Categoria?sort={Price}&order={ASC || DESC}
+$router->addRoute('Productos/:Categoria', 'GET', 'ProductsApiController', 'getProductsByParams');
 $router->addRoute('Productos/:Categoria/:Producto', 'GET', 'ProductsApiController', 'getProductsByParams');
 
 $router->addRoute('user/token', 'GET', 'UserApiController', 'getToken');
